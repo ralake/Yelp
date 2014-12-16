@@ -40,7 +40,7 @@ feature 'restaurants' do
 
 		let!(:cp ){ Restaurant.create(name:'Crispys Palace') }
 
-		it 'lets a user view a restaurant' do
+		scenario 'lets a user view a restaurant' do
 			visit '/restaurants'
 			click_link 'Crispys Palace'
 			expect(page).to have_content 'Crispys Palace'
@@ -68,7 +68,7 @@ feature 'restaurants' do
 
 		before { Restaurant.create(:name => "Crispy Palace") }
 
-		it 'removes a restaurant when a user clicks a delete link' do
+		scenario 'removes a restaurant when a user clicks a delete link' do
 			visit '/restaurants'
 			click_link 'Delete Crispy Palace'
 			expect(page).not_to have_content 'Crispy Palace'
