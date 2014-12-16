@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 group :test do
   gem 'rspec-rails'
   gem 'capybara'
+  gem 'launchy'
 end
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'

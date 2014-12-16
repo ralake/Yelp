@@ -7,10 +7,10 @@ feature 'reviewing' do
 	scenario 'allows users to leave reviews using a form' do
 		visit '/restaurants'
 		click_link 'Review Richies Cantina'
-		fill_in 'gripes', with: "scary, but rather marvelous music"
+		fill_in 'Gripes', with: "scary, but rather marvelous music"
 		select '4', from: 'Rating'
 		click_button 'Leave Review'
-
+		save_and_open_page
 		expect(current_path).to eq '/restaurants'
 		expect(page).to have_content("scary, but rather marvelous music")
 	end
