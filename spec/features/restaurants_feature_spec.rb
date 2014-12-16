@@ -13,9 +13,7 @@ feature 'restaurants' do
 
 	context 'restaurants have been added' do
 
-		before do
-			Restaurant.create(name: 'Crispys Palace')
-		end
+		before { Restaurant.create(name: 'Crispys Palace') }
 
 		scenario 'display restaurants' do
 			visit '/restaurants'
@@ -40,15 +38,28 @@ feature 'restaurants' do
 
 	context 'viewing restaurants' do
 
-		before do
-			@crispal = Restaurant.create(name: 'Crispy Palace')
-		end
+		let!(:cp ){ Restaurant.create(name:'Crispys Palace') }
 
 		it 'lets a user view a restaurant' do
 			visit '/restaurants'
-			click_link 'Crispy Palace'
-			expect(page).to have_content 'Crispy Palace'
-			expect(current_path).to eq "/restaurants/#{@crispal.id}"
+			click_link 'Crispys Palace'
+			expect(page).to have_content 'Crispys Palace'
+			expect(current_path).to eq "/restaurants/#{cp.id}"
+		end
+
+	end
+
+	context 'editing restaurants' do
+
+		before { Restaurant.create name:'Crispys Palace' }
+
+		scenario 'let a user edit a restaurant' do
+			visit '/restaurants'
+			click_link 'Edit Crispys Palace'
+			fill_in 'Name', with: 'Crispys Hovel'
+			click_button 'Update Restaurant'
+			expect(page).to have_content 'Crispys Hovel'
+			expect(current_path).to eq '/restaurants'
 		end
 
 	end
