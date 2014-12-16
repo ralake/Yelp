@@ -38,4 +38,19 @@ feature 'restaurants' do
 
 	end
 
+	context 'viewing restaurants' do
+
+		before do
+			@crispal = Restaurant.create(name: 'Crispy Palace')
+		end
+
+		it 'lets a user view a restaurant' do
+			visit '/restaurants'
+			click_link 'Crispy Palace'
+			expect(page).to have_content 'Crispy Palace'
+			expect(current_path).to eq "/restaurants/#{@crispal.id}"
+		end
+
+	end
+
 end
