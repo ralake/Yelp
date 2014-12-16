@@ -64,4 +64,17 @@ feature 'restaurants' do
 
 	end
 
+	context 'deleting restaurants' do
+
+		before { Restaurant.create(:name => "Crispy Palace") }
+
+		it 'removes a restaurant when a user clicks a delete link' do
+			visit '/restaurants'
+			click_link 'Delete Crispy Palace'
+			expect(page).not_to have_content 'Crispy Palace'
+			expect(page).to have_content 'Restaurant deleted successfully'
+		end
+
+	end
+
 end
