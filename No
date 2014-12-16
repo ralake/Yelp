@@ -1,0 +1,1 @@
+app/views/restaurants/index.html.erb restaurants yet!
