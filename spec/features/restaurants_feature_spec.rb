@@ -1,20 +1,5 @@
 require 'rails_helper'
 
-def user_signin
-	visit('/')
-	click_link('Sign up')
-	fill_in('Email', with: 'test@example.com')
-	fill_in('Password', with: 'testtest')
-	fill_in('Password confirmation', with: 'testtest')
-	click_button('Sign up')
-end
-
-def add_restaurant
-	click_link 'Add a restaurant'
-	fill_in 'Name', with: 'Crispys Palace'
-	click_button 'Create Restaurant'
-end
-
 feature 'restaurants' do
 
 	context 'no restaurants have been added' do
@@ -42,7 +27,7 @@ feature 'restaurants' do
 
 		scenario 'prompt user to fill out a form, then displays new restaurant' do
 			user_signin
-			add_restaurant
+			add_restaurant("Crispys Palace")
 			expect(page).to have_content 'Crispys Palace'
 			expect(current_path).to eq '/restaurants'
 		end
@@ -65,13 +50,13 @@ feature 'restaurants' do
 
 	context 'viewing restaurants' do
 
-		let!(:cp ){ Restaurant.create(name:'Crispys Palace') }
+		let!(:crisyps_palace){ Restaurant.create(name:'Crispys Palace') }
 
 		scenario 'lets a user view a restaurant' do
 			visit '/restaurants'
 			click_link 'Crispys Palace'
 			expect(page).to have_content 'Crispys Palace'
-			expect(current_path).to eq "/restaurants/#{cp.id}"
+			expect(current_path).to eq "/restaurants/#{crisyps_palace.id}"
 		end
 
 	end
@@ -80,7 +65,7 @@ feature 'restaurants' do
 
 		scenario 'let a user edit a restaurant' do
 			user_signin
-			add_restaurant
+			add_restaurant("Crispys Palace")
 			click_link 'Edit Crispys Palace'
 			fill_in 'Name', with: 'Crispys Hovel'
 			click_button 'Update Restaurant'
@@ -90,7 +75,7 @@ feature 'restaurants' do
 
 		scenario 'it will not allow a user to edit a restaurant that they did not create' do
 			user_signin
-			add_restaurant
+			add_restaurant("Crispys Palace")
 			click_link('Sign out')
 			click_link('Sign up')
 			fill_in('Email', with: 'rich@example.com')
@@ -104,15 +89,41 @@ feature 'restaurants' do
 
 	context 'deleting restaurants' do
 
-		before { Restaurant.create(:name => "Crispy Palace") }
-
 		scenario 'removes a restaurant when a user clicks a delete link' do
 			user_signin
-			click_link 'Delete Crispy Palace'
-			expect(page).not_to have_content 'Crispy Palace'
+			add_restaurant("Crispys Palace")
+			click_link 'Delete Crispys Palace'
+			expect(page).not_to have_content 'Crispys Palace'
 			expect(page).to have_content 'Restaurant deleted successfully'
+		end
+
+		scenario 'trying to remove a restaurant that you didnt create' do
+			user_signin
+			add_restaurant("Crispys Palace")
+			click_link('Sign out')
+			click_link('Sign up')
+			fill_in('Email', with: 'rich@example.com')
+			fill_in('Password', with: 'testrich')
+			fill_in('Password confirmation', with: 'testrich')
+			click_button('Sign up')
+			expect(page).not_to have_link('Delete Crispys Palace')
 		end
 
 	end
 
+end
+
+def user_signin
+	visit('/')
+	click_link('Sign up')
+	fill_in('Email', with: 'test@example.com')
+	fill_in('Password', with: 'testtest')
+	fill_in('Password confirmation', with: 'testtest')
+	click_button('Sign up')
+end
+
+def add_restaurant(name)
+	click_link 'Add a restaurant'
+	fill_in 'Name', with: "#{name}"
+	click_button 'Create Restaurant'
 end

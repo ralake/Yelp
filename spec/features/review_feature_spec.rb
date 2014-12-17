@@ -2,10 +2,9 @@ require 'rails_helper'
 
 feature 'reviewing' do
 
-	before {Restaurant.create name: 'Richies Cantina'}
-
 	scenario 'allows users to leave reviews using a form' do
-		visit '/restaurants'
+		user_signin
+		add_restaurant("Richies Cantina")
 		click_link 'Review Richies Cantina'
 		fill_in 'Gripes', with: "scary, but rather marvelous music"
 		select '4', from: 'Rating'
@@ -16,6 +15,7 @@ feature 'reviewing' do
 
 	scenario 'removes reviews when restaurants are deleted' do
 		user_signin
+		add_restaurant("Richies Cantina")
 		click_link 'Review Richies Cantina'
 		fill_in 'Gripes', with: "scary, but rather marvelous music"
 		select '4', from: 'Rating'
