@@ -1,10 +1,19 @@
 require 'rails_helper'
 
+def user_signin
+	visit('/')
+	click_link('Sign up')
+	fill_in('Email', with: 'test@example.com')
+	fill_in('Password', with: 'testtest')
+	fill_in('Password confirmation', with: 'testtest')
+	click_button('Sign up')
+end
+
 feature 'restaurants' do
 
 	context 'no restaurants have been added' do
 		scenario 'should display a prompt to add a restaurant' do
-			visit '/restaurants'
+			user_signin
 			expect(page).to have_content 'No restaurants'
 			expect(page).to have_link 'Add a restaurant'
 		end
@@ -26,7 +35,7 @@ feature 'restaurants' do
 	context 'creating restaurants' do
 
 		scenario 'prompt user to fill out a form, then displays new restaurant' do
-			visit '/restaurants' 
+			user_signin
 			click_link 'Add a restaurant'
 			fill_in 'Name', with: 'Crispys Palace'
 			click_button 'Create Restaurant'
@@ -35,7 +44,7 @@ feature 'restaurants' do
 		end
 
 		scenario 'the system is not inventive enough to allow a restaurant to have an edgy shoreditch name' do
-			visit '/restaurants'
+			user_signin
 			click_link 'Add a restaurant'
 			fill_in 'Name', with: 'cb'
 			click_button 'Create Restaurant'
@@ -63,7 +72,7 @@ feature 'restaurants' do
 		before { Restaurant.create name:'Crispys Palace' }
 
 		scenario 'let a user edit a restaurant' do
-			visit '/restaurants'
+			user_signin
 			click_link 'Edit Crispys Palace'
 			fill_in 'Name', with: 'Crispys Hovel'
 			click_button 'Update Restaurant'
@@ -78,7 +87,7 @@ feature 'restaurants' do
 		before { Restaurant.create(:name => "Crispy Palace") }
 
 		scenario 'removes a restaurant when a user clicks a delete link' do
-			visit '/restaurants'
+			user_signin
 			click_link 'Delete Crispy Palace'
 			expect(page).not_to have_content 'Crispy Palace'
 			expect(page).to have_content 'Restaurant deleted successfully'

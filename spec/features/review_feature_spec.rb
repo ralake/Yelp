@@ -15,7 +15,7 @@ feature 'reviewing' do
 	end
 
 	scenario 'removes reviews when restaurants are deleted' do
-		visit '/restaurants'
+		user_signin
 		click_link 'Review Richies Cantina'
 		fill_in 'Gripes', with: "scary, but rather marvelous music"
 		select '4', from: 'Rating'
