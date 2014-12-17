@@ -23,7 +23,6 @@ feature 'reviewing' do
 		click_link 'Delete Richies Cantina'
 		expect(current_path).to eq '/restaurants'
 		expect(page).not_to have_content("scary, but rather marvelous music")
-		save_and_open_page
 	end
 
 end

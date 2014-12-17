@@ -34,6 +34,15 @@ feature 'restaurants' do
 			expect(current_path).to eq '/restaurants'
 		end
 
+		scenario 'the system is not inventive enough to allow a restaurant to have an edgy shoreditch name' do
+			visit '/restaurants'
+			click_link 'Add a restaurant'
+			fill_in 'Name', with: 'cb'
+			click_button 'Create Restaurant'
+			expect(page).not_to have_css 'h2', text: 'cb'
+			expect(page).to have_content 'error'
+		end
+
 	end
 
 	context 'viewing restaurants' do
