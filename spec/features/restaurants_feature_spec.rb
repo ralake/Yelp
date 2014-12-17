@@ -41,7 +41,6 @@ feature 'restaurants' do
 			click_button 'Create Restaurant'
 			expect(page).not_to have_css 'h2', text: 'cb'
 			expect(page).to have_content 'error'
-			save_and_open_page
 		end
 
 	end
