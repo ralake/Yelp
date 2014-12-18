@@ -1,3 +1,5 @@
+require 'byebug'
+
 class ReviewsController < ApplicationController
 
 	def new
@@ -7,14 +9,13 @@ class ReviewsController < ApplicationController
 
 	def create
 	  @restaurant = Restaurant.find(params[:restaurant_id])
+	  params[:review][:user_id] = current_user.id
 	  @restaurant.reviews.create(review_params)
-	  @review = Review.find_by(:restaurant_id => @restaurant.id)
-	  @review.user_id = current_user.id
 	  redirect_to restaurants_path
 	end
 
 	def review_params
-	  params.require(:review).permit(:gripes, :rating)
+	  params.require(:review).permit(:gripes, :rating, :user_id)
 	end
 
 	 def destroy
