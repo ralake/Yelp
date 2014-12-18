@@ -13,7 +13,9 @@
           <% restaurant.reviews.each do |review| %>
             <li>
               <%= review.gripes %>, <strong><%= review.rating %></strong>/5
-              (Posted <%= time_ago_in_words(review.created_at) %>)
+              <br>
+              <%= link_to "Endorse", review_endorsements_path(review), method: :post %>
+              <p>Posted <%= time_ago_in_words(review.created_at) %>) | <%= review.endorsements.count %> endorsements |</p>
             </li>
           <% end %>
         </ul>
