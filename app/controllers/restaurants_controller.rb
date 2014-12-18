@@ -26,10 +26,6 @@ before_action :authenticate_user!, :except => [:index, :show]
 
   def edit
     @restaurant = Restaurant.find(params[:id])
-    if @restaurant.user_id != current_user.id
-      flash[:error] = "You cannot edit this"
-    else
-    end
   end
 
   def update
