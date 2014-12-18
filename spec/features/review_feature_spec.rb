@@ -25,4 +25,9 @@ feature 'reviewing' do
 		expect(page).to have_content('★★★★☆')
 	end
 
+	scenario 'display when they are created relative to now' do
+		leave_review('Lovely', '4')
+		expect(page).to have_content('Posted')
+	end
+
 end

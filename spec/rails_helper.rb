@@ -1,32 +1,11 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV["RAILS_ENV"] ||= 'test'
 require 'spec_helper'
+require 'test_helper_methods'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'capybara/rails'
 
-def user_signin
-  visit('/')
-  click_link('Sign up')
-  fill_in('Email', with: 'test@example.com')
-  fill_in('Password', with: 'testtest')
-  fill_in('Password confirmation', with: 'testtest')
-  click_button('Sign up')
-end
-
-def add_restaurant(name)
-  click_link 'Add a restaurant'
-  fill_in 'Name', with: "#{name}"
-  click_button 'Create Restaurant'
-end
-
-def leave_review(gripes, rating)
-  visit '/restaurants'
-  click_link 'Review Richies Cantina'
-  fill_in 'Gripes', with: gripes
-  select rating, from: 'Rating'
-  click_button 'Leave Review'
-end
 # Add additional requires below this line. Rails is not loaded until this point!
 
 # Requires supporting ruby files with custom matchers and macros, etc, in

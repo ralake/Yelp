@@ -13,6 +13,7 @@
           <% restaurant.reviews.each do |review| %>
             <li>
               <%= review.gripes %>, <strong><%= review.rating %></strong>/5
+              (Posted <%= time_ago_in_words(review.created_at) %>)
             </li>
           <% end %>
         </ul>
