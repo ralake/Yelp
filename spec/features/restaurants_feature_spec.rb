@@ -111,19 +111,39 @@ feature 'restaurants' do
 
 	end
 
+	describe '#average_rating' do
+
+		context 'no reviews' do
+
+			it 'returns N/A when there are no reviews' do
+				restaurant = Restaurant.create(name: 'The Ivy')
+				expect(restaurant.average_rating).to eq 'N/A'
+			end
+
+		end
+
+		context 'One review' do
+
+			it 'returns the rating' do
+				restaurant = Restaurant.create(name: 'The Ivy')
+				restaurant.reviews.create(rating: 4)
+				expect(restaurant.average_rating).to eq(4)
+			end
+
+		end
+
+		context 'Multiple reviews' do
+
+			it 'returns the average' do
+				restaurant = Restaurant.create(name: 'The Ivy')
+				restaurant.reviews.create(rating: 1)
+				restaurant.reviews.create(rating: 5)
+				expect(restaurant.average_rating).to eq(3)
+			end
+
+		end
+		
+	end
+
 end
 
-def user_signin
-	visit('/')
-	click_link('Sign up')
-	fill_in('Email', with: 'test@example.com')
-	fill_in('Password', with: 'testtest')
-	fill_in('Password confirmation', with: 'testtest')
-	click_button('Sign up')
-end
-
-def add_restaurant(name)
-	click_link 'Add a restaurant'
-	fill_in 'Name', with: "#{name}"
-	click_button 'Create Restaurant'
-end
