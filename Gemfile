@@ -11,6 +11,8 @@ group :test do
 end
 
 gem 'coffee-rails', '~> 4.0.0'
+gem 'poltergeist'
+gem 'database_cleaner'
 gem 'devise'
 gem 'jbuilder', '~> 2.0'
 gem 'jquery-rails'
