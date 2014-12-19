@@ -11,4 +11,4 @@ class Restaurant < ActiveRecord::Base
   	reviews.average(:rating)
   end
   
-end
+end 
