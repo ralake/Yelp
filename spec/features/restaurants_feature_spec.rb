@@ -32,7 +32,16 @@ feature 'restaurants' do
 			expect(current_path).to eq '/restaurants'
 		end
 
-		scenario 'the system is not inventive enough to allow a restaurant to have an edgy shoreditch name' do
+		scenario 'creating a restaurant and supplying an image' do
+			user_signin
+			click_link 'Add a restaurant'
+  		fill_in 'Name', with: "Rich's Radish"
+  		fill_in 'image', with: '../../public/favicon.ico'
+  		click_button 'Create Restaurant'
+  		expect(page).to have_selector('img[alt="dvasdva"]')
+		end
+
+		scenario 'the tries to create a restaurant with a short name' do
 			user_signin
 			click_link 'Add a restaurant'
 			fill_in 'Name', with: 'cb'
