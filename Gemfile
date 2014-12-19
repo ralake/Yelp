@@ -11,6 +11,7 @@ group :test do
 end
 
 gem 'coffee-rails', '~> 4.0.0'
+gem 'aws-sdk'
 gem 'poltergeist'
 gem 'database_cleaner'
 gem 'devise'
