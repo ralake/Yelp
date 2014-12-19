@@ -48,7 +48,7 @@ before_action :authenticate_user!, :except => [:index, :show]
   end
 
   def restaurant_params
-    params.require(:restaurant).permit(:name, :image)
+    params.require(:restaurant).permit(:name, :image, :description)
   end
 
 end

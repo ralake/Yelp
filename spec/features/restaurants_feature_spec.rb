@@ -32,13 +32,22 @@ feature 'restaurants' do
 			expect(current_path).to eq '/restaurants'
 		end
 
-		scenario 'creating a restaurant and supplying an image' do
+		scenario 'with a description' do
+			user_signin
+			click_link 'Add a restaurant'
+  		fill_in 'Name', with: "Crispys Palace"
+  		fill_in "Description", with: "Modern Rural Cuisine"
+  		click_button 'Create Restaurant'
+  		expect(page).to have_content("Modern Rural Cuisine")
+		end
+
+		xscenario 'creating a restaurant and supplying an image' do
 			user_signin
 			click_link 'Add a restaurant'
   		fill_in 'Name', with: "Rich's Radish"
   		fill_in 'Image', with: '../../public/favicon.ico'
   		click_button 'Create Restaurant'
-  		expect(page).to have_css('img[alt="dvasdva"]')
+  		expect(page).to have_css('img[alt=""]')
 		end
 
 		scenario 'the tries to create a restaurant with a short name' do

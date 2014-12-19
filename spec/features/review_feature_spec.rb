@@ -30,4 +30,9 @@ feature 'reviewing' do
 		expect(page).to have_content('Posted')
 	end
 
+	xscenario 'deleting a review' do
+		leave_review('Lovely jubly', '5')
+		click_link('Delete review')
+		expect(page).not_to have_content('Lovely jubly')
+	end
 end
