@@ -30,9 +30,23 @@ feature 'reviewing' do
 		expect(page).to have_content('Posted')
 	end
 
-	xscenario 'deleting a review' do
+	scenario 'deleting a review' do
 		leave_review('Lovely jubly', '5')
 		click_link('Delete review')
 		expect(page).not_to have_content('Lovely jubly')
+		expect(page).to have_content('Richies Cantina')
 	end
+
+	scenario 'attempting to delete a review that you did not write' do
+		leave_review('Lovely jubly', '5')
+		click_link('Sign out')
+	  click_link('Sign up')
+	  fill_in('Email', with: 'test2@example2.com')
+	  fill_in('Password', with: 'test2test2')
+	  fill_in('Password confirmation', with: 'test2test2')
+	  click_button('Sign up')
+	  click_link('Delete review')
+	  expect(page).to have_content('You are not allowed to delete this review')
+	end
+
 end
