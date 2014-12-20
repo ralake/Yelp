@@ -17,8 +17,10 @@
             <li>
               <%= review.gripes %>, <strong><%= review.rating %></strong>/5
               <br>
-              <%= link_to "Delete review", review_path(review), method: :delete %>
-              <br>
+              <% if !current_user.nil? && review.user_id == current_user.id %>
+                <%= link_to "Delete review", review_path(review), method: :delete %>
+              <% end %>
+                <br>
               <%= link_to "Endorse", review_endorsements_path(review), class: 'endorsements-link' %>
               <span class="endorsements_count"><%= review.endorsements.count %></span> endorsements
               <p>Posted <%= time_ago_in_words(review.created_at) %></p>

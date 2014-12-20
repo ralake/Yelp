@@ -45,8 +45,7 @@ feature 'reviewing' do
 	  fill_in('Password', with: 'test2test2')
 	  fill_in('Password confirmation', with: 'test2test2')
 	  click_button('Sign up')
-	  click_link('Delete review')
-	  expect(page).to have_content('You are not allowed to delete this review')
+	  expect(page).not_to have_link('Delete review')
 	end
 
 end
