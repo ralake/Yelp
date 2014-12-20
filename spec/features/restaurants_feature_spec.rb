@@ -41,13 +41,13 @@ feature 'restaurants' do
   		expect(page).to have_content("Modern Rural Cuisine")
 		end
 
-		xscenario 'creating a restaurant and supplying an image' do
+		scenario 'creating a restaurant and supplying an image' do
 			user_signin
 			click_link 'Add a restaurant'
   		fill_in 'Name', with: "Rich's Radish"
-  		fill_in 'Image', with: '../../public/favicon.ico'
+  		attach_file('restaurant[image]', 'spec/features/a-radish.jpg')
   		click_button 'Create Restaurant'
-  		expect(page).to have_css('img[alt=""]')
+  		expect(page).to have_css("img[src*='a-radish.jpg']")
 		end
 
 		scenario 'the tries to create a restaurant with a short name' do
